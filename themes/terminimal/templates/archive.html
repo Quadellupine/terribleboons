@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+
+{%- block title -%}
+{{ title_macros::title(page_title=page.title, main_title=config.title) }}
+{%- endblock -%}
+
+{% block content %}
+    <div class="post">
+        <h1 class="post-title">{{ page.title }}</h1>
+        <h2> Raid Strategies </h2>
+        {% set my_array = ["w1", "w2", "w3", "w4", "w5", "w6", "w7"] %}
+        <ul>
+        {% for item in my_array %}
+            <h3>{{ item | upper}}</h3>
+            {% set section = get_section(path="strats/"~item~"/_index.md") %}
+            {% set pages = section.pages | sort(attribute='title') %}
+            <ul>
+            {% for page in pages %}
+                <li><a href="{{ page.permalink }}">{{ page.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+        </ul>
+
+    </div>
+{% endblock content %}
